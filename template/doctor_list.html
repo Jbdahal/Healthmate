@@ -1,0 +1,132 @@
+{% extends 'admin_base.html' %}
+{% block title %}Doctor List{% endblock %}
+{% block head %}
+<style>
+    .container {
+        margin-top: 50px;
+        text-align: center;
+    }
+
+    h2 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .doctor-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .doctor-table th, .doctor-table td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .doctor-table {
+        background-color: #fff;
+        transition: background-color 0.3s ease;
+    }
+
+    .doctor-table:hover {
+        background-color: #f9f9f9;
+    }
+
+    .doctor-table th {
+        background-color: #f2f2f2;
+    }
+
+    .doctor-table td img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-top: 8px;
+    }
+
+    .add-doctor-button {
+        background: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        margin-top: 20px;
+        display: inline-block;
+        transition: background-color 0.3s ease;
+    }
+
+    .add-doctor-button:hover {
+        background: #45a049;
+    }
+
+    .delete-doctor-button {
+        background: #ff0000;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .delete-doctor-button:hover {
+        background: #e60000;
+    }
+
+</style>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2>Doctor List</h2>
+        <table class="doctor-table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    
+                    <th>Email</th>
+                    <th>Age</th>
+                    <th>Contact</th>
+                    <th>Sex</th>
+                    <th>Qualification</th>
+                    <th>Specialities</th>
+                    <th>Hospital</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Profile Image</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for doctor in doctors %}
+                    <tr>
+                        <td>{{ doctor.user.username }}</td>
+                        
+                        <td>{{ doctor.user.email }}</td>
+                        <td>{{ doctor.user.age }}</td>
+                        <td>{{ doctor.user.contact }}</td>
+                        <td>{{ doctor.user.sex }}</td>
+                        <td>{{ doctor.qualification }}</td>
+                        <td>{{ doctor.specialities }}</td>
+                        <td>{{ doctor.hospital }}</td>
+                        <td>{{ doctor.start_time }}</td>
+                        <td>{{ doctor.end_time }}</td>
+                        <td>
+                            {% if doctor.user.profile_image %}
+                                <img src="{{ doctor.user.profile_image.url }}" alt="{{ doctor.user.username }} Profile Image" width="50">
+                            {% else %}
+                                No Image
+                            {% endif %}
+                        </td>
+                        
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a class="add-doctor-button" href="{% url 'add_doctor' %}">Add Doctor</a>
+    </div>
+{% endblock %}
